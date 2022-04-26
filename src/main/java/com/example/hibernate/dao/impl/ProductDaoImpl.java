@@ -1,6 +1,7 @@
-package com.example.hibernate.repository;
+package com.example.hibernate.dao.impl;
 
 import com.example.hibernate.entities.Product;
+import com.example.hibernate.dao.ProductDao;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -12,41 +13,44 @@ import java.util.List;
 @Component
 @Primary
 @AllArgsConstructor
-public class RepositoryProduct implements Repository<Product> {
+public class ProductDaoImpl implements ProductDao<Product> {
+
     private final EntityManager entityManager;
+
 
     @Override
     @Transactional
-    public int create(Product product) {
+    public void create(Product product) {
         entityManager.persist(product);
-        return entityManager.find(Product.class, product.getId()).getId();
     }
 
     @Override
-    public Product selectById(int id) {
+    public List<Product> findAll() {
+        return entityManager
+                .createQuery("Select a from products.products a", Product.class)
+                .getResultList();
+    }
+
+
+    @Override
+    @Transactional
+    public Product findById(Long id) {
         return entityManager.find(Product.class, id);
     }
 
     @Override
-    public List<Product> selectAll() {
-        return entityManager
-                .createQuery("Select a from Product a", Product.class)
-                .getResultList();
-    }
-
-    @Override
     @Transactional
-    public int update(Product product) {
-        entityManager.merge(product);
-
-        return 0;
-    }
-
-    @Override
-    @Transactional
-    public int delete(Product product) {
+    public void deleteById(Long id) {
+        Product product = entityManager.find(Product.class, id);
         entityManager.remove(product);
 
-        return 0;
     }
+
+    @Override
+    @Transactional
+    public Product saveOrUpdate(Product product) {
+        return entityManager.merge(product);
+    }
+
+
 }
