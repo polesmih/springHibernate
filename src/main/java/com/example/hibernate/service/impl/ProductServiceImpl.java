@@ -1,10 +1,11 @@
 package com.example.hibernate.service.impl;
 
-import com.example.hibernate.entities.Product;
 import com.example.hibernate.dao.ProductDao;
+import com.example.hibernate.entities.Product;
 import com.example.hibernate.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Component
@@ -20,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(int id) {
         return productDao.findById(id);
     }
 
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(int id) {
         productDao.deleteById(id);
     }
 
@@ -39,6 +40,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void create(Product product) {
         productDao.create(product);
+    }
+
+    public void getCustomersByProducts(int productId) {
+        productDao.getCustomersByProducts(productId);
     }
 
 }

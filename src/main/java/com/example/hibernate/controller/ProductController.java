@@ -4,7 +4,6 @@ import com.example.hibernate.entities.Product;
 import com.example.hibernate.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("product/delete/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable int id) {
         productService.deleteById(id);
     }
 
@@ -39,4 +38,8 @@ public class ProductController {
         productService.create(product);
     }
 
+    @GetMapping("/products/productCustomers/{id}")
+    public void getCustomers(@PathVariable int id) {
+        productService.getCustomersByProducts(id);
+    }
 }

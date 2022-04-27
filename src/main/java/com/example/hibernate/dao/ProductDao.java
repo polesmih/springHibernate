@@ -10,8 +10,9 @@ public interface ProductDao <T>{
 
         void create(T obj);
         List<T> findAll();
-        T findById(Long id);
-        void deleteById(Long id);
+        T findById(int id);
+        void deleteById(int id);
         Product saveOrUpdate(T obj);
+        void getCustomersByProducts(int productId);
 
 }
