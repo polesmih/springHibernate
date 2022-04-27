@@ -3,25 +3,43 @@ package com.example.hibernate.controller;
 import com.example.hibernate.entities.Product;
 import com.example.hibernate.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @AllArgsConstructor
 public class ProductController {
-    private final ProductService productService;
 
-    @GetMapping("/getAll")
-    public List<Product> getAll() {
-       return productService.getAll();
+    private ProductService productService;
+
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
-    @PostMapping("/persistBatch")
-    public void persistBatch() {
-        productService.persistBatch();
+    @GetMapping("/product")
+    public List<Product> showAllProducts() {
+        return productService.getListProduct();
+
     }
 
+    @GetMapping("product/delete/{id}")
+    public void deleteById(@PathVariable int id) {
+        productService.deleteById(id);
+    }
+
+
+    @PostMapping("/product/addProduct")
+    public void addProduct(@RequestBody Product product) {
+        productService.create(product);
+    }
+
+    @GetMapping("/products/productCustomers/{id}")
+    public void getCustomers(@PathVariable int id) {
+        productService.getCustomersByProducts(id);
+    }
 }

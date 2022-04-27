@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>product</title>
+</head>
+<body>
+
+<h1>Products</h1>
+<table>
+  <thead>
+  <tr>
+  <th>id</th>
+  <th>title</th>
+  <th>price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="p : ${products}">
+    <td th:text="${p.id}"/>
+    <td th:text="${p.title}"/>
+    <td th:text="${p.price}"/>
+  </tr>
+  </tbody>
+</table>
+
+<h3>
+  <form action="/product/addProduct">
+    <input type="submit" value="Add new product">
+  </form>
+</h3>
+
+</body>
+</html>
