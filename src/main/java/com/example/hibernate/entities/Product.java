@@ -1,5 +1,6 @@
 package com.example.hibernate.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -28,7 +29,12 @@ public class Product {
     private int price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
 
 }

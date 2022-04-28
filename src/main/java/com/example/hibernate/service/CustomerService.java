@@ -1,11 +1,13 @@
 package com.example.hibernate.service;
 
-import com.example.hibernate.dao.CustomerDao;
+import com.example.hibernate.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
+@Service
+public class CustomerService {
+    private CustomerRepository customerRepository;
 
-public interface CustomerService {
-
-    void setCustomers(CustomerDao customerDao);
-    void getPurchasesByCustomerId (int customerId);
-
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 }
