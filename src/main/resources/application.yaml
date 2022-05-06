@@ -1,13 +1,22 @@
 server:
-  port: 8888
+  port: 8080
 
 spring:
-  h2:
-    console:
-      enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 2240512
+    url: jdbc:mysql://localhost:3306/test
+
   jpa:
+    properties:
+      hibernate:
+
+    show-sql: true
+    generate-ddl: true
+
     hibernate:
       ddl-auto: update
-    show-sql: true
+
 
 

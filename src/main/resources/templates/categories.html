@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<h3><a th:href="@{/product}"><span th:text="Продукты"></span></a></h3>
+
+<div th:if="${!errors.isEmpty()}" class="alert alert-danger" role="alert">
+    <ul class="list-group">
+        <li th:each="error : ${errors.split('\n')}" th:text="${error}" class="list-group-item">Error #1</li>
+    </ul>
+</div>
+
+<h3>Добавить категорию</h3>
+<form action="#" th:action="@{/category}" th:object="${category}" method="post">
+    <p>Наименование категории: <input type="text" th:field="*{title}"/></p>
+    <p><input type="submit" value="Сохранить"/> <input type="reset" value="Отмена"/></p>
+</form>
+
+<br>
+
+<h3>Все категории</h3>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Наименование</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${categories}">
+        <td th:text="${p.id}"/>
+<!--        <td>-->
+<!--            <a th:href="@{|product/${p.id}|}"><span th:text="${p.title}"></span></a>-->
+<!--        </td>-->
+        <td th:text="${p.title}"/>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
