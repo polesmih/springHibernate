@@ -1,14 +1,13 @@
 package com.example.hibernate.service;
 
-import com.example.hibernate.repository.CategoryRepository;
-import com.example.hibernate.repository.CustomerRepository;
-import org.springframework.stereotype.Service;
+import com.example.hibernate.domain.Category;
+import java.util.List;
+import java.util.Optional;
 
-@Service
-public class CategoryService {
-    private CategoryRepository categoryRepository;
+public interface CategoryService {
 
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    List<Category> getAll();
+    Optional<Category> findById(int id);
+    Optional<Category> findByTitle(String title);
+    Category saveOrUpdate(Category category);
 }

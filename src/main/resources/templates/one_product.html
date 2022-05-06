@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукт</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <h3><a th:href="@{/product}"><span th:text="Продукты"></span></a></h3>
+
+    <div th:if="${!errors.isEmpty()}" class="alert alert-danger" role="alert">
+        <ul class="list-group">
+            <li th:each="error : ${errors.split('\n')}" th:text="${error}" class="list-group-item">Error #1</li>
+        </ul>
+    </div>
+
+    <h3>Изменить продукт</h3>
+    <form action="#" th:action="@{/product}" th:object="${product}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{id}" readonly/>
+        <input type="hidden" th:field="*{imageLink}" readonly/>
+
+        <div class="form-group">
+            <label for="price">Наименование продукта:</label>
+            <input class="form-control" id="price" type="text" th:field="*{title}"/>
+        </div>
+        <div class="form-group">
+            <label for="price">Стоимость продукта</label>
+            <input class="form-control" id="price" type="text" th:field="*{cost}"/>
+        </div>
+        <div class="form-group">
+            <label for="categories">Категории</label>
+            <select id="categories" class="custom-select" th:field="*{categoryId}">
+                <option th:each="i : ${categories}" th:value="${i.getId()}" th:text="${i.getTitle()}"
+                        th:selected="(${i.getId()} == *{categoryId})">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="file" name="image" id="image">
+        </div>
+        <p><input type="submit" value="Сохранить"/> <input type="reset" value="Отмена"/></p>
+    </form>
+</div>
+</body>
+</html>

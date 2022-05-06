@@ -1,49 +1,55 @@
 package com.example.hibernate.service.impl;
 
-import com.example.hibernate.dao.ProductDao;
-import com.example.hibernate.entities.Product;
+import com.example.hibernate.domain.Product;
+import com.example.hibernate.repository.ProductRepository;
 import com.example.hibernate.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-@Component
+@Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private  ProductDao<Product> productDao;
-
-    @Autowired
+    private final ProductRepository productRepository;
 
     @Override
-    public void setProductDao(ProductDao<Product> productDao) {
-        this.productDao = productDao;
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public Product getProductById(int id) {
-        return productDao.findById(id);
-    }
-
-    @Override
-    public List<Product> getListProduct() {
-        return productDao.findAll();
+    public Page<Product> getAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
 
     @Override
-    public void deleteById(int id) {
-        productDao.deleteById(id);
+    public Optional<Product> findById(int id) {
+        return productRepository.findById(id);
     }
-
 
     @Override
-    public void create(Product product) {
-        productDao.create(product);
+    public Product saveOrUpdate(Product product) {
+        return productRepository.saveAndFlush(product);
     }
 
-    public void getCustomersByProducts(int productId) {
-        productDao.getCustomersByProducts(productId);
+    @Override
+    public List<Product> getAllProductsFiltered(Map<String, String> filters) {
+        return productRepository.getAllProductsFiltered(filters);
     }
 
+    @Override
+    public List<Product> getAllProductsFiltered(Map<String, String> filters, Pageable pageable) {
+        return productRepository.getAllProductsFiltered(filters, pageable);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
 }
