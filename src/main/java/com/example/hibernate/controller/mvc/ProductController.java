@@ -1,6 +1,8 @@
-package com.example.hibernate.controller;
+package com.example.hibernate.controller.mvc;
 
+import com.example.hibernate.domain.FilterProductRequest;
 import com.example.hibernate.domain.dto.ProductDTO;
+import com.example.hibernate.domain.dto.ProductRestDTO;
 import com.example.hibernate.exception.ShopException;
 import com.example.hibernate.service.ShopService;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/product")
@@ -28,15 +31,10 @@ public class ProductController {
 
     @GetMapping
     public String getProducts(Model model,
-                              @RequestParam Map<String, String> allRequestParams,
-                              @RequestParam(value = "pageNum", required = false) Integer pageNum) {
-        log.info("request params {}", allRequestParams);
+                              FilterProductRequest filterProductRequest) {
+        log.info("request params {}", filterProductRequest);
 
-        final int pageSize = 10;
-
-
-        Pageable pageRequest = PageRequest.of(pageNum == null ? 0 : pageNum, pageSize);
-        Page<ProductDTO> page = shopService.getAllProducts(allRequestParams, pageRequest);
+        Page<ProductRestDTO> page = shopService.getAllProductsPageable(filterProductRequest);
         model.addAttribute("page", page);
 
         int totalPages = page.getTotalPages();
@@ -47,14 +45,15 @@ public class ProductController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        model.addAttribute("filters", "ffff");
+
+        model.addAttribute("filter", filterProductRequest);
         model.addAttribute("categories", shopService.getAllCategories());
         return "products";
     }
 
 
     @GetMapping(value = "/form")
-    public String getProduct(@RequestParam(name = "id", required = false) int id, Model model) {
+    public String getProduct(@RequestParam(name = "id", required = false) Long id, Model model) {
         prepareModelForForm(model, shopService.getProductByIdOrEmpty(id), "");
         return "one_product";
     }
@@ -73,7 +72,7 @@ public class ProductController {
     }
 
     @GetMapping("/delete")
-    public String deleteProduct(@RequestParam(name = "id") int productId) {
+    public String deleteProduct(@RequestParam(name = "id") Long productId) {
         shopService.deleteProductByID(productId);
         return "redirect:/product";
     }

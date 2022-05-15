@@ -12,6 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
+
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -20,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> findById(int id) {
+    public Optional<Category> findById(long id) {
         return categoryRepository.findById(id);
     }
 

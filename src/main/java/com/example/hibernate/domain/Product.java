@@ -4,6 +4,9 @@ import com.example.hibernate.domain.dto.ProductDTO;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
 
 @Data
 @AllArgsConstructor
@@ -15,29 +18,32 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        private long id;
 
-    @NotBlank(message = "Имя продукта обязательно")
-    @Column(name = "title")
-    private String title;
+        @NotBlank(message = "Имя продукта обязательно")
+        @Column(name = "title")
+        private String title;
 
-    @Column(name = "cost")
-    private int cost;
+        @NotNull(message = "Цена продукта обязательна")
+        @Column(name = "cost")
+        private BigDecimal cost;
 
-    @Column(name = "image_link")
-    private String imageLink;
+        @Column(name = "image_link")
+        private String imageLink;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+        @ManyToOne
+        @JoinColumn(name = "category_id")
+        @NotNull(message = "Категория обязательна")
+        private Category category;
 
-    public Product(ProductDTO that) {
-        id = that.getId();
-        title = that.getTitle();
-        cost = that.getCost();
-        imageLink = that.getImageLink();
-    }
+        public Product(ProductDTO that) {
+            id = that.getId()== null ? -1 : that.getId();
+            title = that.getTitle();
+            cost = that.getCost();
+            imageLink = that.getImageLink();
+        }
+
 }

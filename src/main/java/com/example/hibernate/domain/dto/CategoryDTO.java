@@ -10,7 +10,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class CategoryDTO {
 
-    private int id;
+    private long id;
     private String title;
 
     public CategoryDTO(Category that) {

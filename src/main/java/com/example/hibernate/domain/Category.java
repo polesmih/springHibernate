@@ -20,7 +20,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "title")
     @NotBlank(message = "Имя категории обязательно")
@@ -42,5 +42,4 @@ public class Category {
         id = that.getId();
         title = that.getTitle();
     }
-
 }

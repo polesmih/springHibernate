@@ -1,4 +1,4 @@
-package com.example.hibernate.controller;
+package com.example.hibernate.controller.mvc;
 
 import com.example.hibernate.domain.dto.CategoryDTO;
 import com.example.hibernate.exception.ShopException;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+
 
 @Controller
 @AllArgsConstructor

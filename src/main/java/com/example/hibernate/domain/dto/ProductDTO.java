@@ -3,16 +3,19 @@ package com.example.hibernate.domain.dto;
 import com.example.hibernate.domain.Product;
 import lombok.*;
 
+import java.math.BigDecimal;
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class ProductDTO {
-    private int id;
+    private Long id;
     private String title;
-    private int cost;
-    private int categoryId;
+    private BigDecimal cost;
+    private Long categoryId;
     private String categoryName;
     private String imageLink;
 
@@ -25,5 +28,14 @@ public class ProductDTO {
             categoryId = that.getCategory().getId();
             categoryName = that.getCategory().getTitle();
         }
+    }
+
+    public ProductDTO(ProductDTO that) {
+        id = that.getId();
+        title = that.getTitle();
+        cost = that.getCost();
+        imageLink = that.getImageLink();
+        categoryId = that.getCategoryId();
+        categoryName = that.getCategoryName();
     }
 }

@@ -23,21 +23,21 @@
 
 
     <h3>Фильтры</h3>
-    <form action="#" th:action="@{/product}" method="get">
+    <form action="#" th:action="@{/product}" th:object="${filter}" method="get">
         <div class="form-group">
 
-            <select name="category" title="Категория">
+            <select name="category" title="Категория" th:field="*{categoryTitle}">
                 <option value="">Все</option>
-                <option th:each="i : ${categories}" th:value="${i.getTitle()}" th:text="${i.getTitle()}">
+                <option th:each="i : ${categories}" th:value="${i.getTitle()}" th:text="${i.getTitle()}"
+                        th:selected="(${i.getTitle()} == *{categoryTitle})">
                 </option>
             </select>
         </div>
         <div class="form-group">
-            <p>Минимальная цена: <input type="text" name="minCost"/></p>
+            <p>Минимальная цена: <input type="text" th:field="*{minCost}"/></p>
         </div>
-        <p>Максимальная цена: <input type="text" name="maxCost"/></p>
-        <p>Название: <input type="text" name="title"/></p>
-
+        <p>Максимальная цена: <input type="text"  th:field="*{maxCost}"/></p>
+        <p>Название: <input type="text" th:field="*{title}"/></p>
         <p><input type="submit" value="Отфильтровать"/></p>
     </form>
 
@@ -45,10 +45,9 @@
 
     <br>
     <div class="my-container">
-        <div style="padding-right: 5px" th:if="${page.totalPages > 1}" class="pagination" th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{/product(pageNum=${pageNumber - 1})}"
-               th:text="${pageNumber}"
-               th:class="${pageNumber==page.number} ? active"></a>
+        <div style="padding-right: 5px" th:if="${page.totalPages > 1}"  th:object="${filter}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/product(currPage=${pageNumber} -1, categoryTitle=*{categoryTitle}, minCost=*{minCost}, maxCost=*{maxCost}, title=*{title})}"
+               th:text="${pageNumber}"></a>
         </div>
     </div>
 

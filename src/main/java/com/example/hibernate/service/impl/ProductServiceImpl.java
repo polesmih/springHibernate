@@ -1,5 +1,6 @@
 package com.example.hibernate.service.impl;
 
+import com.example.hibernate.domain.FilterProductRequest;
 import com.example.hibernate.domain.Product;
 import com.example.hibernate.repository.ProductRepository;
 import com.example.hibernate.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Optional<Product> findById(int id) {
+    public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 
@@ -39,13 +41,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProductsFiltered(Map<String, String> filters) {
-        return productRepository.getAllProductsFiltered(filters);
-    }
-
-    @Override
-    public List<Product> getAllProductsFiltered(Map<String, String> filters, Pageable pageable) {
-        return productRepository.getAllProductsFiltered(filters, pageable);
+    public Page<Product> getAllProductsFiltered(FilterProductRequest filterProductRequest, Pageable pageable) {
+        return productRepository.getAllProductsFiltered(filterProductRequest, pageable);
     }
 
     @Override
