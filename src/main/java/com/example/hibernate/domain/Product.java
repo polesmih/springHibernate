@@ -21,7 +21,7 @@ public class Product {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
-        private long id;
+        private Long id;
 
         @NotBlank(message = "Имя продукта обязательно")
         @Column(name = "title")
@@ -40,10 +40,9 @@ public class Product {
         private Category category;
 
         public Product(ProductDTO that) {
-            id = that.getId()== null ? -1 : that.getId();
-            title = that.getTitle();
-            cost = that.getCost();
-            imageLink = that.getImageLink();
+                id = that.getId()== null ? -1 : that.getId();
+                title = that.getTitle();
+                cost = that.getCost();
+                imageLink = that.getImageLink();
         }
-
 }

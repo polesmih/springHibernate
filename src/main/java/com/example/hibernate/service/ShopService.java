@@ -3,6 +3,7 @@ package com.example.hibernate.service;
 import com.example.hibernate.domain.Category;
 import com.example.hibernate.domain.FilterProductRequest;
 import com.example.hibernate.domain.dto.CategoryDTO;
+import com.example.hibernate.domain.dto.CategoryWithChildsDTO;
 import com.example.hibernate.domain.dto.ProductDTO;
 import com.example.hibernate.domain.dto.ProductRestDTO;
 import com.example.hibernate.exception.ShopEntityNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
+
 
 public interface ShopService {
 
@@ -27,5 +29,10 @@ public interface ShopService {
     void deleteProductByID(Long productId);
 
     List<CategoryDTO> getAllCategories();
-    Category saveOrUpdateCategory(CategoryDTO categoryDTO) throws ShopException;
+    Category saveOrUpdateCategoryWithoutParent(CategoryDTO categoryDTO) throws ShopException;
+    CategoryDTO addCategory(CategoryDTO categoryDTO) throws ShopEntityNotFoundException;
+    CategoryDTO updateCategory(CategoryDTO categoryDTO) throws ShopEntityNotFoundException;
+    void deleteCategory(Long categoryId) throws ShopEntityNotFoundException;
+    CategoryDTO getCategoryDTOById(Long categoryId) throws ShopEntityNotFoundException;
+    List<CategoryWithChildsDTO> getAllCategoryTrees();
 }
