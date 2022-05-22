@@ -71,7 +71,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Page<ProductRestDTO> getAllProductsPageable(FilterProductRequest filterProductRequest) {
 
-        if (filterProductRequest.getCategoryTitle() != null && !filterProductRequest.getCategoryTitle().isBlank()) {
+        if (filterProductRequest.getCategoryTitle() != null) {
             categoryService.findByTitle(filterProductRequest.getCategoryTitle())
                     .ifPresent(c -> filterProductRequest.setCategoryId(c.getId()));
         }
