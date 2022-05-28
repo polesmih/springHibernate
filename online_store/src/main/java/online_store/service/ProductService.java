@@ -1,9 +1,10 @@
-package com.example.hibernate.service;
+package online_store.service;
 
-import com.example.hibernate.domain.FilterProductRequest;
-import com.example.hibernate.domain.Product;
+import online_store.domain.FilterProductRequest;
+import online_store.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 

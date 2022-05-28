@@ -1,0 +1,5 @@
+CREATE TABLE product(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(45),
+    cost NUMERIC
+)
